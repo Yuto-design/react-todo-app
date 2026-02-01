@@ -9,7 +9,9 @@ const InputForm = ({taskList, setTaskList}) => {
         setTaskList([
             ...taskList,
             {
-                text: inputText
+                id: taskList.length + 1,
+                text: inputText,
+                completed: false
             }
         ])
 
