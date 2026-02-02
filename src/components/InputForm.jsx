@@ -1,11 +1,13 @@
-import React from 'react'
+import React, {useContext, useState} from 'react'
+import {TodoContext} from '../context/TodoContext'
 
-const InputForm = ({dispatch}) => {
-    const [inputText, setInputText] = React.useState('');
+const InputForm = () => {
+    const {dispatch} = useContext(TodoContext);
+    const [inputText, setInputText] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (inputText.trim() === '') return;
+        if (!inputText.trim()) return;
 
         dispatch({
             type: 'ADD_TODO',
