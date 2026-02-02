@@ -1,25 +1,40 @@
-import React, {useEffect} from 'react';
+import React, {useReducer, useEffect} from 'react';
+import {todoReducer, initialState} from './reducer/todoReducer';
 import './App.css';
 import Title from './components/Title';
 import InputForm from './components/InputForm';
 import TodoList from './components/TodoList';
 
 function App() {
-  const [taskList, setTaskList] = React.useState([]);
+  const [state, dispatch] = useReducer(
+    todoReducer,
+    initialState
+  );
 
   useEffect(() => {
     localStorage.setItem(
       'todos',
-      JSON.stringify(taskList)
+      JSON.stringify(state.todos)
     );
-    console.log("Task List Updated:", taskList);
-  }, [taskList]);
+  }, [state.todos]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('todos');
+    if (saved) {
+      JSON.parse(saved).forEach(todo => {
+        dispatch({type: 'ADD_TODO', payload: todo.text});
+      });
+    }
+  }, []);
 
   return (
     <div className="body">
       <Title />
-      <InputForm taskList={taskList} setTaskList={setTaskList} />
-      <TodoList taskList={taskList} setTaskList={setTaskList} />
+      <InputForm dispatch={dispatch} />
+      <TodoList
+        todos={state.todos}
+        dispatch={dispatch}
+      />
     </div>
   );
 }

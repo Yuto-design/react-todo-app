@@ -1,32 +1,24 @@
 import React from 'react'
 
-const InputForm = ({taskList, setTaskList}) => {
-    const [inputText, setInputText] = React.useState("");
+const InputForm = ({dispatch}) => {
+    const [inputText, setInputText] = React.useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (inputText.trim() === "") return;
+        if (inputText.trim() === '') return;
 
-        setTaskList(prev => [
-            ...prev,
-            {
-                id: Date.now(),
-                text: inputText,
-                completed: false
-            }
-        ])
+        dispatch({
+            type: 'ADD_TODO',
+            payload: inputText
+        });
 
-        setInputText("");
-    }
-
-    const handleChange = (e) => {
-        setInputText(e.target.value);
+        setInputText('');
     }
 
     return (
         <div className="inputForm">
             <form onSubmit={handleSubmit}>
-                <input type="text" onChange={handleChange} value={inputText}/>
+                <input type="text" onChange={e => setInputText(e.target.value)} value={inputText}/>
                 <button>
                     <i className="fa-solid fa-square-plus"></i>
                 </button>
