@@ -8,6 +8,10 @@ function App() {
   const [taskList, setTaskList] = React.useState([]);
 
   useEffect(() => {
+    localStorage.setItem(
+      'todos',
+      JSON.stringify(taskList)
+    );
     console.log("Task List Updated:", taskList);
   }, [taskList]);
 
