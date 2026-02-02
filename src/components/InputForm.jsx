@@ -4,11 +4,11 @@ const InputForm = ({taskList, setTaskList}) => {
     const [inputText, setInputText] = React.useState("");
 
     const handleSubmit = (e) => {
-        if (inputText.trim() === "") return;
         e.preventDefault();
+        if (inputText.trim() === "") return;
 
-        setTaskList([
-            ...taskList,
+        setTaskList(prev => [
+            ...prev,
             {
                 id: Date.now(),
                 text: inputText,
@@ -17,7 +17,6 @@ const InputForm = ({taskList, setTaskList}) => {
         ])
 
         setInputText("");
-
     }
 
     const handleChange = (e) => {
