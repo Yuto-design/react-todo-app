@@ -1,30 +1,19 @@
-import React, {useContext} from 'react'
-import { TodoContext } from '../context/TodoContext'
+import { useTodo } from '../hooks/useTodo'
 import TodoItem from './TodoItem'
 
 const TodoList = () => {
-    const { state, dispatch } = useContext(TodoContext);
+    const { todos, toggleTodo, deleteTodo } = useTodo();
 
     return (
         <div className="todos">
-        {state.todos.map(todo => (
-            <TodoItem
-            key={todo.id}
-            task={todo}
-            onToggle={() =>
-                dispatch({
-                type: 'TOGGLE_TODO',
-                payload: todo.id
-                })
-            }
-            onDelete={() =>
-                dispatch({
-                type: 'DELETE_TODO',
-                payload: todo.id
-                })
-            }
-            />
-        ))}
+            {todos.map(todo => (
+                <TodoItem
+                    key={todo.id}
+                    task={todo}
+                    onToggle={() => toggleTodo(todo.id)}
+                    onDelete={() => deleteTodo(todo.id)}
+                />
+            ))}
         </div>
     )
 }

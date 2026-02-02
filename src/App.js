@@ -1,5 +1,5 @@
 import React from 'react';
-import {TodoProvider} from './context/TodoContext';
+import { TodoProvider } from './context/TodoContext';
 import './App.css';
 import Title from './components/Title';
 import InputForm from './components/InputForm';
