@@ -4,12 +4,13 @@ const InputForm = ({taskList, setTaskList}) => {
     const [inputText, setInputText] = React.useState("");
 
     const handleSubmit = (e) => {
+        if (inputText.trim() === "") return;
         e.preventDefault();
 
         setTaskList([
             ...taskList,
             {
-                id: taskList.length + 1,
+                id: Date.now(),
                 text: inputText,
                 completed: false
             }

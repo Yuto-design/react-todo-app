@@ -23,7 +23,7 @@ const TodoList = ({taskList, setTaskList}) => {
         <div className="todoList">
             <div className="todos">
                 {taskList.map((task, index) => (
-                    <div className={`todo ${task.completed ? 'completed' : ''}`} key={index}>
+                    <div className={`todo ${task.completed ? 'completed' : ''}`} key={task.id}>
                         <div className="todoText">
                             <span>{task.text}</span>
                         </div>
