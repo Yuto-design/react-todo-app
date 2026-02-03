@@ -12,7 +12,7 @@ export const useTodo = () => {
 
     const { state, dispatch } = context;
 
-    const filterdTodos = state.todos.filter(todo => {
+    const filteredTodos = state.todos.filter(todo => {
         if (state.filter === 'active') {
             return !todo.completed;
         }
@@ -29,8 +29,15 @@ export const useTodo = () => {
         })
     }
 
+    const updateTodo = (id, text) => {
+        dispatch ({
+            type: 'UPDATE_TODO',
+            payload: { id, text }
+        })
+    }
+
     return {
-        todos: filterdTodos,
+        todos: filteredTodos,
         filter: state.filter,
         setFilter,
         addTodo: (text) =>
@@ -39,5 +46,6 @@ export const useTodo = () => {
             dispatch({ type: 'DELETE_TODO', payload: id }),
         toggleTodo: (id) =>
             dispatch({ type: 'TOGGLE_TODO', payload: id }),
+        updateTodo
     }
 }
