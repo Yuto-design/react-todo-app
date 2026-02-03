@@ -1,5 +1,6 @@
 export const initialState = {
-    todos: []
+    todos: [],
+    filter: 'all'
 }
 
 export const todoReducer = (state, action) => {
@@ -33,6 +34,12 @@ export const todoReducer = (state, action) => {
                         ? {...todo, completed: !todo.completed}
                         : todo
                 )
+            }
+
+        case 'SET_FILTER':
+            return {
+                ...state,
+                filter: action.payload
             }
 
         default:

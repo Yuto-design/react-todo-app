@@ -10,33 +10,34 @@ export const useTodo = () => {
         )
     }
 
-    const {state, dispatch} = context;
+    const { state, dispatch } = context;
 
-    const addTodo = (text => {
-        dispatch({
-            type: 'ADD_TODO',
-            payload: text
-        })
+    const filterdTodos = state.todos.filter(todo => {
+        if (state.filter === 'active') {
+            return !todo.completed;
+        }
+        if (state.filter === 'completed') {
+            return todo.completed;
+        }
+        return true;
     })
 
-    const deleteTodo = (id) => {
-        dispatch({
-            type: 'DELETE_TODO',
-            payload: id
-        })
-    }
-
-    const toggleTodo = (id) => {
-        dispatch({
-            type: 'TOGGLE_TODO',
-            payload: id
+    const setFilter = (filter) => {
+        dispatch ({
+            type: 'SET_FILTER',
+            payload: filter
         })
     }
 
     return {
-        todos: state.todos,
-        addTodo,
-        deleteTodo,
-        toggleTodo
+        todos: filterdTodos,
+        filter: state.filter,
+        setFilter,
+        addTodo: (text) =>
+            dispatch({ type: 'ADD_TODO', payload: text }),
+        deleteTodo: (id) =>
+            dispatch({ type: 'DELETE_TODO', payload: id }),
+        toggleTodo: (id) =>
+            dispatch({ type: 'TOGGLE_TODO', payload: id }),
     }
 }
