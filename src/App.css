@@ -97,6 +97,12 @@ header {
                 transform 0.15s ease;
 }
 
+.todo.locked {
+    opacity: 0.3;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
 .todo.editing {
     background: rgba(83, 164, 195, 0.08);
     transform: scale(1.02);

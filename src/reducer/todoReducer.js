@@ -54,10 +54,13 @@ export const todoReducer = (state, action) => {
             }
 
         case 'START_EDIT':
+            if (state.editingId !== null) {
+                return state;
+            }
             return {
                 ...state,
                 editingId: action.payload
-            }
+            };
 
         case 'END_EDIT':
             return {

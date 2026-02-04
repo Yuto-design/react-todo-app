@@ -2,19 +2,39 @@ import { useState } from 'react'
 import { useTodo } from '../hooks/useTodo'
 
 const TodoItem = ({ task }) => {
-    const { toggleTodo, deleteTodo, updateTodo } = useTodo()
+    const {
+        toggleTodo,
+        deleteTodo,
+        updateTodo,
+        editingId,
+        startEdit,
+        endEdit
+    } = useTodo()
 
-    const [isEditing, setIsEditing] = useState(false)
+    const isEditing = editingId === task.id
+    const isLocked = editingId !== null && !isEditing
+
     const [editText, setEditText] = useState(task.text)
 
     const handleSave = () => {
         if (!editText.trim()) return
         updateTodo(task.id, editText)
-        setIsEditing(false)
+        endEdit()
+    }
+
+    const handleCancel = () => {
+        setEditText(task.text)
+        endEdit()
     }
 
     return (
-        <div className={`todo ${isEditing ? 'editing' : ''} ${task.completed ? 'completed' : ''}`}>
+        <div
+            className={`todo
+                ${isEditing ? 'editing' : ''}
+                ${isLocked ? 'locked' : ''}
+                ${task.completed ? 'completed' : ''}
+            `}
+        >
             {isEditing ? (
                 <form
                     className="editForm"
@@ -33,7 +53,7 @@ const TodoItem = ({ task }) => {
                         <button type="submit">
                             <i className="fa-solid fa-floppy-disk"></i>
                         </button>
-                        <button type="button" onClick={() => setIsEditing(false)}>
+                        <button type="button" onClick={handleCancel}>
                             <i className="fa-solid fa-backward"></i>
                         </button>
                     </div>
@@ -42,16 +62,18 @@ const TodoItem = ({ task }) => {
                 <>
                     <span
                         className="todoText"
-                        onDoubleClick={() => setIsEditing(true)}
+                        onDoubleClick={() => {
+                            if (!isLocked) startEdit(task.id)
+                        }}
                     >
                         {task.text}
                     </span>
 
                     <div className="view-icons">
-                        <button onClick={() => toggleTodo(task.id)}>
+                        <button disabled={isLocked} onClick={() => toggleTodo(task.id)}>
                             <i className="fa-solid fa-check"></i>
                         </button>
-                        <button onClick={() => deleteTodo(task.id)}>
+                        <button disabled={isLocked} onClick={() => deleteTodo(task.id)}>
                             <i className="fa-solid fa-trash"></i>
                         </button>
                     </div>
