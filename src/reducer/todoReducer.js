@@ -1,6 +1,7 @@
 export const initialState = {
     todos: [],
-    filter: 'all'
+    filter: 'all',
+    editingId: null
 }
 
 export const todoReducer = (state, action) => {
@@ -50,6 +51,18 @@ export const todoReducer = (state, action) => {
                         ? { ...todo, text: action.payload.text }
                         : todo
                 )
+            }
+
+        case 'START_EDIT':
+            return {
+                ...state,
+                editingId: action.payload
+            }
+
+        case 'END_EDIT':
+            return {
+                ...state,
+                editingId: null
             }
 
         default:

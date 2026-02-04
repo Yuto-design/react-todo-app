@@ -36,10 +36,25 @@ export const useTodo = () => {
         })
     }
 
+    const startEdit = (id) => {
+        dispatch({
+            type: 'START_EDIT',
+            payload: id
+        })
+    }
+
+    const endEdit = () => {
+        dispatch({
+            type: 'END_EDIT',
+        })
+    }
+
     return {
         todos: filteredTodos,
         filter: state.filter,
         setFilter,
+        startEdit,
+        endEdit,
         addTodo: (text) =>
             dispatch({ type: 'ADD_TODO', payload: text }),
         deleteTodo: (id) =>

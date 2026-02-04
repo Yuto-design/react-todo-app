@@ -2,24 +2,25 @@ import { useState } from 'react'
 import { useTodo } from '../hooks/useTodo'
 
 const TodoItem = ({ task }) => {
-    const { toggleTodo, deleteTodo, updateTodo } = useTodo();
+    const { toggleTodo, deleteTodo, updateTodo } = useTodo()
 
-    const [isEditing, setIsEditing] = useState(false);
-    const [editText, setEditText] = useState(task.text);
+    const [isEditing, setIsEditing] = useState(false)
+    const [editText, setEditText] = useState(task.text)
 
     const handleSave = () => {
-        updateTodo(task.id, editText);
-        setIsEditing(false);
-    };
+        if (!editText.trim()) return
+        updateTodo(task.id, editText)
+        setIsEditing(false)
+    }
 
     return (
-        <div className={`todo ${isEditing ? 'editing' : ''}${task.completed ? 'completed' : ''}`}>
+        <div className={`todo ${isEditing ? 'editing' : ''} ${task.completed ? 'completed' : ''}`}>
             {isEditing ? (
                 <form
                     className="editForm"
                     onSubmit={e => {
-                    e.preventDefault();
-                    handleSave();
+                        e.preventDefault()
+                        handleSave()
                     }}
                 >
                     <input
@@ -29,10 +30,10 @@ const TodoItem = ({ task }) => {
                         autoFocus
                     />
                     <div className="edit-icons">
-                        <button onClick={handleSave}>
+                        <button type="submit">
                             <i className="fa-solid fa-floppy-disk"></i>
                         </button>
-                        <button onClick={() => setIsEditing(false)}>
+                        <button type="button" onClick={() => setIsEditing(false)}>
                             <i className="fa-solid fa-backward"></i>
                         </button>
                     </div>
