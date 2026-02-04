@@ -13,7 +13,7 @@ const TodoItem = ({ task }) => {
     };
 
     return (
-        <div className={`todo ${task.completed ? 'completed' : ''}`}>
+        <div className={`todo ${isEditing ? 'editing' : ''}${task.completed ? 'completed' : ''}`}>
             {isEditing ? (
                 <form
                     className="editForm"

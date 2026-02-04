@@ -49,13 +49,22 @@ header {
     padding: 0.5rem;
     font-size: 1rem;
     border: none;
-    background: white;
+    background: #fff;
+}
+
+.editInput {
+    transition: opacity 0.15s ease,
+                transform 0.15s ease;
 }
 
 .inputForm input:focus,
 .editInput:focus {
     outline: none;
     border-bottom: 2px solid rgb(83, 164, 195);
+}
+
+.todo.editing .quoteInput {
+    transform: scale(1.03);
 }
 
 .inputForm button {
@@ -73,15 +82,24 @@ header {
     align-items: center;
     justify-content: center;
     gap: 8px;
+    transition: background-color 0.2s ease,
+                transform 0.2s ease;
 }
 
 .todoText {
     width: 15rem;
     height: 1.7rem;
     padding: 0.5rem;
-    background: white;
+    background: #fff;
     display: flex;
     align-items: center;
+    transition: opacity 0.15s ease
+                transform 0.15s ease;
+}
+
+.todo.editing {
+    background: rgba(83, 164, 195, 0.08);
+    transform: scale(1.02);
 }
 
 .todo.completed .todoText {
@@ -108,6 +126,22 @@ header {
 .edit-icons .fa-backward {
     padding: 0.487rem 0.5rem;
     background: rgb(158, 158, 158);
+}
+
+.view-icons i,
+.edit-icons i {
+    transition: opacity 0.15s ease,
+                transform 0.15s ease;
+}
+
+.todo.editing .view-icons i {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.todo.editing .edit-icons i {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .edit-icons i:hover {
