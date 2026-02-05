@@ -63,6 +63,7 @@ const TodoItem = ({ task }) => {
                 <>
                     <span
                         className="todoText"
+                        data-tooltip={task.completed ? 'Completed tasks cannot be edited' : ''}
                         onDoubleClick={() => {
                             if (!isEditLocked) startEdit(task.id)
                         }}

@@ -84,6 +84,7 @@ header {
     gap: 8px;
     transition: background-color 0.2s ease,
                 transform 0.2s ease;
+    margin-bottom: 8px;
 }
 
 .todoText {
@@ -97,7 +98,7 @@ header {
                 transform 0.15s ease;
 }
 
-.todo.locked {
+.todo.locked:not(.completed) {
     opacity: 0.3;
     transition: opacity 0.2s ease;
 }
@@ -109,8 +110,34 @@ header {
 
 .todo.completed .todoText {
     text-decoration: line-through;
-    color: #999;
+    color: rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.5);
+    position: relative;
+}
+
+.todo.completed .view-icons i {
     opacity: 0.6;
+}
+
+.todo.completed .todoText::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #940000;
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.todo.completed .todoText:hover::after {
+    opacity: 1;
 }
 
 .view-icons .fa-check {
