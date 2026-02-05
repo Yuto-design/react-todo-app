@@ -12,7 +12,8 @@ const TodoItem = ({ task }) => {
     } = useTodo()
 
     const isEditing = editingId === task.id
-    const isLocked = editingId !== null && !isEditing
+    const isEditLocked = task.completed || (editingId !== null && !isEditing)
+    const isActionLocked = editingId !== null && !isEditing
 
     const [editText, setEditText] = useState(task.text)
 
@@ -31,7 +32,7 @@ const TodoItem = ({ task }) => {
         <div
             className={`todo
                 ${isEditing ? 'editing' : ''}
-                ${isLocked ? 'locked' : ''}
+                ${isEditLocked ? 'locked' : ''}
                 ${task.completed ? 'completed' : ''}
             `}
         >
@@ -63,17 +64,17 @@ const TodoItem = ({ task }) => {
                     <span
                         className="todoText"
                         onDoubleClick={() => {
-                            if (!isLocked) startEdit(task.id)
+                            if (!isEditLocked) startEdit(task.id)
                         }}
                     >
                         {task.text}
                     </span>
 
                     <div className="view-icons">
-                        <button disabled={isLocked} onClick={() => toggleTodo(task.id)}>
+                        <button disabled={isActionLocked} onClick={() => toggleTodo(task.id)}>
                             <i className="fa-solid fa-check"></i>
                         </button>
-                        <button disabled={isLocked} onClick={() => deleteTodo(task.id)}>
+                        <button disabled={isActionLocked} onClick={() => deleteTodo(task.id)}>
                             <i className="fa-solid fa-trash"></i>
                         </button>
                     </div>
