@@ -11,6 +11,8 @@ const TodoItem = ({ task }) => {
         endEdit
     } = useTodo()
 
+    const [showTooltip, setShowTooltip] = useState(false)
+
     const isEditing = editingId === task.id
     const isEditLocked = task.completed || (editingId !== null && !isEditing)
     const isActionLocked = editingId !== null && !isEditing
@@ -26,6 +28,17 @@ const TodoItem = ({ task }) => {
     const handleCancel = () => {
         setEditText(task.text)
         endEdit()
+    }
+
+    const handoleDoubleClick = () => {
+        if (isEditLocked && task.completed) {
+            setShowTooltip(true)
+            setTimeout(()=> {
+                setShowTooltip(false)
+            }, 2000)
+        } else {
+            startEdit(task.id)
+        }
     }
 
     return (
@@ -63,10 +76,9 @@ const TodoItem = ({ task }) => {
                 <>
                     <span
                         className="todoText"
+                        onDoubleClick={handoleDoubleClick}
                         data-tooltip={task.completed ? 'Completed tasks cannot be edited' : ''}
-                        onDoubleClick={() => {
-                            if (!isEditLocked) startEdit(task.id)
-                        }}
+                        data-show={showTooltip}
                     >
                         {task.text}
                     </span>

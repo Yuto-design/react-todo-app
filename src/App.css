@@ -136,8 +136,15 @@ header {
     transition: opacity 0.2s ease;
 }
 
-.todo.completed .todoText:hover::after {
+.todo.completed .todoText[data-show="true"]::after {
     opacity: 1;
+}
+
+
+.view-icons,
+.edit-icons {
+    display: flex;
+    gap: 6px;
 }
 
 .view-icons .fa-check {
