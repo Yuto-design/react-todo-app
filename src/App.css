@@ -99,7 +99,6 @@ header {
 
 .todo.locked {
     opacity: 0.3;
-    pointer-events: none;
     transition: opacity 0.2s ease;
 }
 
