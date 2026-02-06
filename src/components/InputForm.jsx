@@ -12,6 +12,11 @@ const InputForm = () => {
             return
         };
 
+        if (inputText.trim() === '') {
+            alert('Please enter the task details.');
+            return;
+        }
+
         addTodo(inputText);
         setInputText('');
     }
