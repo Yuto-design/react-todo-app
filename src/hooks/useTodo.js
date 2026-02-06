@@ -53,6 +53,7 @@ export const useTodo = () => {
         todos: filteredTodos,
         filter: state.filter,
         editingId: state.editingId,
+        isEditing: state.editingId !== null,
         setFilter,
         startEdit,
         endEdit,

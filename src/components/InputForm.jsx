@@ -2,12 +2,15 @@ import { useState } from 'react'
 import { useTodo } from '../hooks/useTodo'
 
 const InputForm = () => {
-    const {addTodo} = useTodo();
+    const { addTodo, isEditing } = useTodo();
     const [inputText, setInputText] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!inputText.trim()) return;
+        if (isEditing) {
+            alert('There is a task being edited.')
+            return
+        };
 
         addTodo(inputText);
         setInputText('');

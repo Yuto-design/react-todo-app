@@ -1,26 +1,44 @@
 import { useTodo } from '../hooks/useTodo'
 
 const Filter = () => {
-    const { filter, setFilter } = useTodo();
+    const { filter, setFilter, isEditing } = useTodo();
 
     return (
         <div className="filters">
             <button
-                onClick={() => setFilter('all')}
+                onClick={() => {
+                    if (isEditing) {
+                        alert('There is a task being edited.')
+                        return
+                    }
+                    setFilter('all')
+                }}
                 className={filter === 'all' ? 'active' : ''}
             >
                 All
             </button>
 
             <button
-                onClick={() => setFilter('active')}
+                onClick={() => {
+                    if (isEditing) {
+                        alert('There is a task being edited.')
+                        return
+                    }
+                    setFilter('active')
+                }}
                 className={filter === 'active' ? 'active' : ''}
             >
-                Activate
+                Active
             </button>
 
             <button
-                onClick={() => setFilter('completed')}
+                onClick={() => {
+                    if (isEditing) {
+                        alert('There is a task being edited.')
+                        return
+                    }
+                    setFilter('completed')
+                }}
                 className={filter === 'completed' ? 'active' : ''}
             >
                 Completed
