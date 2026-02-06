@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useTodo } from '../hooks/useTodo'
 
 const TodoItem = ({ task }) => {
@@ -12,6 +12,7 @@ const TodoItem = ({ task }) => {
     } = useTodo()
 
     const [showTooltip, setShowTooltip] = useState(false)
+    const timerRef = useRef(null)
 
     const isEditing = editingId === task.id
     const isEditLocked = task.completed || (editingId !== null && !isEditing)
@@ -30,16 +31,34 @@ const TodoItem = ({ task }) => {
         endEdit()
     }
 
-    const handoleDoubleClick = () => {
+    const showTooltipTemporarily = () => {
+        if (timerRef.current) {
+            clearTimeout(timerRef.current)
+        }
+
+        setShowTooltip(true)
+
+        timerRef.current = setTimeout(() => {
+            setShowTooltip(false)
+            timerRef.current = null
+        }, 2000)
+    }
+
+    const handleDoubleClick = () => {
         if (isEditLocked && task.completed) {
-            setShowTooltip(true)
-            setTimeout(()=> {
-                setShowTooltip(false)
-            }, 2000)
+            showTooltipTemporarily()
         } else {
             startEdit(task.id)
         }
     }
+
+    useEffect(() => {
+        return () => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current)
+            }
+        }
+    }, [])
 
     return (
         <div
@@ -76,7 +95,7 @@ const TodoItem = ({ task }) => {
                 <>
                     <span
                         className="todoText"
-                        onDoubleClick={handoleDoubleClick}
+                        onDoubleClick={handleDoubleClick}
                         data-tooltip={task.completed ? 'Completed tasks cannot be edited' : ''}
                         data-show={showTooltip}
                     >
