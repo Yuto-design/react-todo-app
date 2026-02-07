@@ -1,8 +1,11 @@
+import { TimerProvider } from '../features/timer/context/TimerContext'
+import Timer from '../features/timer/components/Timer'
+
 const TimerPage = () => {
     return (
-        <div>
-            <h1>Working Time Record</h1>
-        </div>
+        <TimerProvider>
+            <Timer />
+        </TimerProvider>
     )
 }
 
