@@ -1,10 +1,10 @@
 import React from 'react';
-import { TodoProvider } from './context/TodoContext';
+import { TodoProvider } from './features/todo/context/TodoContext';
 import './App.css';
-import Title from './components/Title';
-import InputForm from './components/InputForm';
-import Filter from './components/Filter';
-import TodoList from './components/TodoList';
+import Title from './features/todo/components/Title';
+import InputForm from './features/todo/components/InputForm';
+import Filter from './features/todo/components/Filter';
+import TodoList from './features/todo/components/TodoList';
 
 function App() {
   return (
