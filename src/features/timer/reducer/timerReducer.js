@@ -3,7 +3,8 @@ export const initialState = {
     startTime: null,
     elapsedTime: 0,
     todayTotal: 0,
-    date: new Date().toDateString()
+    date: new Date().toDateString(),
+    history: {}
 }
 
 export const timerReducer = (state, action) => {
@@ -36,6 +37,10 @@ export const timerReducer = (state, action) => {
         case 'RESET_DAY':
             return {
                 ...state,
+                history: {
+                    ...state.history,
+                    [state.date]: state.todayTotal
+                },
                 todayTotal: 0,
                 date: new Date().toDateString()
             }

@@ -29,6 +29,7 @@ export const useTimer = () => {
         isRunning: state.isRunning,
         time: currentTime,
         todayTotal: state.todayTotal,
+        history: state.history,
         start,
         stop,
         reset

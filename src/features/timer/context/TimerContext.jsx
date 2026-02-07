@@ -25,7 +25,8 @@ export const TimerProvider = ({ children  }) => {
             ? {
                 ...initialState,
                 todayTotal: stored.todayTotal,
-                date: stored.date
+                date: stored.date,
+                history: stored.history || {}
             }
             : initialState
     )
@@ -35,10 +36,11 @@ export const TimerProvider = ({ children  }) => {
             STORAGE_KEY,
             JSON.stringify({
                 todayTotal: state.todayTotal,
-                date: state.date
+                date: state.date,
+                history: state.history
             })
         )
-    }, [state.todayTotal, state.date])
+    }, [state.todayTotal, state.date, state.history])
 
     return (
         <TimerContext.Provider value={{ state, dispatch }}>
