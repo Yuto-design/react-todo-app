@@ -10,7 +10,15 @@ const formatTime = (ms) => {
 }
 
 const Timer = () => {
-    const { time, isRunning, start, stop, reset } = useTimer()
+    const {
+        time,
+        todayTotal,
+        isRunning,
+        start,
+        stop,
+        reset
+    } = useTimer()
+
     const [, setTick] = useState(0)
 
     useEffect(() => {
@@ -25,7 +33,8 @@ const Timer = () => {
 
     return (
         <div>
-            <h2>{formatTime(time)}</h2>
+            <h2>Current Timer</h2>
+            <p>{formatTime(time)}</p>
 
             {!isRunning ? (
                 <button onClick={start}>Start</button>
@@ -34,6 +43,11 @@ const Timer = () => {
             )}
 
             <button onClick={reset}>Reset</button>
+
+            <hr />
+
+            <h3>Today's Total</h3>
+            <p>{formatTime(todayTotal)}</p>
         </div>
     )
 }

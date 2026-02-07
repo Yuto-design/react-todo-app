@@ -1,7 +1,9 @@
 export const initialState = {
     isRunning: false,
     startTime: null,
-    elapsedTime: 0
+    elapsedTime: 0,
+    todayTotal: 0,
+    date: new Date().toDateString()
 }
 
 export const timerReducer = (state, action) => {
@@ -13,17 +15,30 @@ export const timerReducer = (state, action) => {
                 startTime: Date.now()
             }
 
-        case 'STOP':
+        case 'STOP':{
+            const workedTime = Date.now() - state.startTime
+
             return {
                 ...state,
                 isRunning: false,
-                elapsedTime:
-                    state.elapsedTime + (Date.now() - state.startTime),
-                startTime: null
+                startTime: null,
+                elapsedTime: state.elapsedTime + workedTime,
+                todayTotal: state.todayTotal + workedTime
             }
+        }
 
         case 'RESET':
-            return initialState
+            return {
+                ...state,
+                elapsedTime: 0
+            }
+
+        case 'RESET_DAY':
+            return {
+                ...state,
+                todayTotal: 0,
+                date: new Date().toDateString()
+            }
 
         default:
             return state

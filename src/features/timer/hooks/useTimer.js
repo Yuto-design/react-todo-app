@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { TimerContext } from '../context/TimerContext'
 
 export const useTimer = () => {
@@ -9,6 +9,13 @@ export const useTimer = () => {
     }
 
     const { state, dispatch } = context
+
+    useEffect(() => {
+        const today = new Date().toDateString()
+        if (state.date !== today) {
+            dispatch({ type: 'RESET_DAY' })
+        }
+    }, [state.date, dispatch])
 
     const start = () => dispatch({ type: 'START' })
     const stop = () => dispatch({ type: 'STOP' })
@@ -21,6 +28,7 @@ export const useTimer = () => {
     return {
         isRunning: state.isRunning,
         time: currentTime,
+        todayTotal: state.todayTotal,
         start,
         stop,
         reset
