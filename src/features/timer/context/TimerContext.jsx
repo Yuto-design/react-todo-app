@@ -1,13 +1,44 @@
-import { createContext, useReducer } from 'react'
+import { createContext, useReducer, useEffect } from 'react'
 import { timerReducer, initialState } from '../reducer/timerReducer'
 
 export const TimerContext = createContext(null)
 
+const STORAGE_KEY = 'timer-state'
+
+const loadFromStorage = () => {
+    const data = localStorage.getItem(STORAGE_KEY)
+    if (!data) return null
+
+    try {
+        return JSON.parse(data)
+    } catch {
+        return null
+    }
+}
+
 export const TimerProvider = ({ children  }) => {
+    const stored = loadFromStorage()
+
     const [state, dispatch] = useReducer(
         timerReducer,
-        initialState
+        stored
+            ? {
+                ...initialState,
+                todayTotal: stored.todayTotal,
+                date: stored.date
+            }
+            : initialState
     )
+
+    useEffect(() => {
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({
+                todayTotal: state.todayTotal,
+                date: state.date
+            })
+        )
+    }, [state.todayTotal, state.date])
 
     return (
         <TimerContext.Provider value={{ state, dispatch }}>
