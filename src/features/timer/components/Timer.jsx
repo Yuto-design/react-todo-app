@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTimer } from '../hooks/useTimer'
 import DailyHistory from './DailyHistory'
+import WorkTimeChart from './WorkTimerChart'
 
 const formatTime = (ms) => {
     const totalSeconds = Math.floor(ms / 1000)
@@ -53,6 +54,10 @@ const Timer = () => {
             <hr />
 
             <DailyHistory />
+
+            <hr />
+
+            <WorkTimeChart />
         </div>
     )
 }
